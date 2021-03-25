@@ -1,0 +1,45 @@
+from news.models import * #Импортируем все модели
+1) user1 = User.objects.create_user(username = 'Dmitry')
+   user2 = User.objects.create_user(username = 'Anton') #создали 2х пользователей
+
+2) Author.objects.create(authorUser=user1)
+   Author.objects.create(authorUser=user2) #создали два объекта модели Author, связанные с пользователями
+
+3) Category.objects.create(nameCategory='Спорт')
+   Category.objects.create(nameCategory='Бизнес')
+   Category.objects.create(nameCategory = 'Путешествия')
+   Category.objects.create(nameCategory = 'Образование') #добавили 4 категории в модель Category
+
+4) Post.objects.create(author=Author.objects.get(authorUser=User.objects.get(username='Dmitry')), categoryType='NW', title = 'Заголовок1', text = 'Текст')
+   Post.objects.create(author=Author.objects.get(authorUser=User.objects.get(username='Dmitry')), categoryType='AR', title = 'Заголовок111', text = 'Текст111')
+   Post.objects.create(author=Author.objects.get(authorUser=User.objects.get(username='Anton')), categoryType='AR', title = 'Заголовок222', text = 'Текст222')
+
+5) p1 = Post.objects.get(pk=1)
+   p2 = Post.objects.get(pk=2)
+   p3 = Post.objects.get(pk=3)
+   c1= Category.objects.get(nameCategory='Спорт')
+   c2 = Category.objects.get(nameCategory = 'Путешествия')
+   p1.postCategory.add(c1)
+   p2.postCategory.add(c2)
+   p3.postCategory.add(c1, c2)
+
+6)Comment.objects.create(commentUser=User.objects.get(username='Dmitry'), commentPost=Post.objects.get(pk=1), text = 'comment text1')
+Comment.objects.create(commentUser=User.objects.get(username='Dmitry'), commentPost=Post.objects.get(pk=2), text = 'comment2 text2')
+Comment.objects.create(commentUser=User.objects.get(username='Anton'), commentPost=Post.objects.get(pk=3), text = 'comment3 text3')
+Comment.objects.create(commentUser=User.objects.get(username='Anton'), commentPost=Post.objects.get(pk=4), text = 'comment4 text4')
+
+7)>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=1).like()
+>>> Post.objects.get(pk=2).like()
+>>> Post.objects.get(pk=3).dislike()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=1).like()
+>>> Comment.objects.get(pk=2).like()
+Comment.objects.get(pk=3).dislike()
+Comment.objects.get(pk=3).dislike()
+
+
+8)
+
